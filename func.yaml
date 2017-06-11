@@ -1,0 +1,4 @@
+name: coze/fn-resizeimage-ruby
+version: 0.0.1
+runtime: ruby
+entrypoint: ruby func.rb
