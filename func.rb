@@ -13,17 +13,20 @@ client = RubyManta::MantaClient.new(host, user, priv_key_data,
                                     :disable_ssl_verification => true
                                    )
 
-
 path = "/irontreeder/stor/iron-fn-demo/"
-file = "The_Blue_Marble.jpg"
-resized_file = "The_Blue_Marble_resized.png"
+
+payload = STDIN.read
+if payload != ""
+    payload = JSON.parse(payload)
+    file = payload['file']
+    height = payload['height']
+    width = payload['width']
+end
 
 data, _ = client.get_object(path + file)
 
 File.open(file, 'w') { |file| file.write(data) }
 
-width = 300
-height = 300
 outfile = FastImage.resize(file, width, height)
 
 client.put_object(path + resized_file, outfile.read)
