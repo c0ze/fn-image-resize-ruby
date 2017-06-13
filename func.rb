@@ -29,4 +29,6 @@ File.open(file, 'w') { |file| file.write(data) }
 
 outfile = FastImage.resize(file, width, height)
 
+file_name, file_ext = file.split('.')
+resized_file = "#{file_name}_#{width}x#{height}.#{file_ext}"
 client.put_object(path + resized_file, outfile.read)
